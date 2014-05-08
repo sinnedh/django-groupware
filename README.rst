@@ -1,5 +1,6 @@
-django-groupware
-================
+============================
+Welcome to django-groupware
+============================
 
 Groupware application based on Python, Django and bootstrap
 
