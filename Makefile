@@ -5,6 +5,10 @@ messages:
 test:
 	python manage.py test groupcalendar --failfast -v3
 
+coverage:
+	coverage run --source='.' manage.py test groupcalendar
+	coverage report --omit "manage.py" --show-missing
+
 make reinstall:
 	rm db/db.sqlite3;
 	touch db/db.sqlite3;
