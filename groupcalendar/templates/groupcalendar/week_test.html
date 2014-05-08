@@ -1,0 +1,62 @@
+<h1>Weekly view</h1>
+
+<table style="width: 100%; table-layout: fixed;">
+  <tr>
+    <th style="width: 60px"></th>
+    {% for day in days %}
+    <th>
+
+      <div style="position: relative; top: 0px; left: 0%; width: 100%; height: 29px; border-bottom: 1px solid #888;">
+      {{ day }}
+      </div>
+    </th>
+    {% endfor %}
+  </tr>
+  <tr>
+    <td>
+      <div style="position: relative; top: 0px; left: 0%; width: 100%; height: 30px; text-align: right;">
+        Full day
+      </div>
+    </td>
+    {% for day in days %}
+    <td>
+      <div style="position: relative; top: 0px; left: 0%; width: 100%; height: 28px; border-bottom: 2px solid #888;"></div>
+    </td>
+    {% endfor %}
+  </tr>
+  <tr>
+    <td>
+      <div style="position: relative; width: 100%; height: 480px;">
+      {% for hour in visible_daily_timerange %}
+      <div style="position: relative; top: -10px; left: 0%; width: 100%; height: 20px; text-align: right">
+        {% if forloop.counter > 1 %}
+        {{ hour }}:00
+        {% endif %}
+      </div>
+      {% endfor %}
+      </div>
+    </td>
+    {% for day in days %}
+    <td>
+      <div style="position: relative; width: 100%; height: 480px;">
+        {% for hour in visible_daily_timerange %}
+        <div style="position: relative; top: 0px; left: 0%; width: 100%; height: 5px;"></div>
+        <div style="position: relative; top: 0px; left: 0%; width: 100%; height: 4px; border-bottom: 1px solid #ddd;"></div>
+        <div style="position: relative; top: 0px; left: 0%; width: 100%; height: 5px;"></div>
+        <div style="position: relative; top: 0px; left: 0%; width: 100%; height: 4px; border-bottom: 1px solid #888;"></div>
+        {% endfor %}
+        <div style="position: absolute; top: 20px; left: 0%; width: 100%; height: 20px; background-color: green;"></div>
+        <div style="position: absolute; top: 70px; left: 0%; width: 50%; height: 50px; background-color: yellow;"></div>
+        <div style="position: absolute; top: 150px; left: 0%; width: 50%; height: 20px; background-color: blue;"></div>
+        <div style="position: absolute; top: 50px; left: 50%; width: 50%; height: 200px; background-color: red;"></div>
+        <div style="position: absolute; top: 300px; left: 0%; width: 33.3%; height: 150px; background-color: orange;"></div>
+        <div style="position: absolute; top: 350px; left: 33.3%; width: 33.3%; height: 30px; background-color: #444444;"></div>
+        <div style="position: absolute; top: 300px; left: 66.6%; width: 33.3%; height: 100px; background-color: #aaaaaa;"></div>
+      </div>
+    {% for hour in visible_daily_timerange %}
+      <!--div style="width: 50px; height: 20px; border: 1px solid red;"></div-->
+    {% endfor %}
+    </td>
+    {% endfor %}
+  </tr>
+</table>

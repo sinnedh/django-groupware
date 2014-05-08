@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% load groupcalendar_extras %}
+
+{% block date_navigation %}
+    <div class="btn-group">
+        <a href="{% url 'groupcalendar:week' %}" type="button" class="btn btn-default navbar-btn">
+            {% bootstrap_icon 'star' %} {% trans 'Show actual week' %}
+        </a>
+    </div>
+    <div class="btn-group">
+        <a href="{% url 'groupcalendar:week' %}{{ date|prevweek|yw_link }}" type="button" class="btn btn-default navbar-btn">
+            {% bootstrap_icon 'chevron-left' %}
+        </a>
+        <a type="button" class="btn btn-default navbar-btn">
+            {{ firstday|date:"d.m" }} - {{ lastday|date:"d.m.Y" }}
+        </a>
+        <a href="{% url 'groupcalendar:week' %}{{ date|nextweek|yw_link }}" type="button" class="btn btn-default navbar-btn">
+            {% bootstrap_icon 'chevron-right' %}
+        </a>
+    </div>
+{% endblock date_navigation %}
+
+
+{% block content %}
+<div class="weekly-calendar">
+<table class="table">
+  <tr>
+    <th style="width: 75px;">{% trans 'WW' %} {{ week_nr }}</th>
+    {% for day in days %}
+    <th>
+        {{ day.date|date:"D, d" }}
+    </th>
+    {% endfor %}
+  </tr>
+  <tr>
+      <td>{% trans 'Full day' %}</td>
+    {% for day in days %}
+    <td>
+        <div class="list-group pull-right">
+            {% for o in day.get_occurences_for_whole_day  %}
+                {% include "groupcalendar/includes/occurence_small_li.html" %}
+            {% endfor %}
+        </div >
+    </td>
+    {% endfor %}
+  </tr>
+  {% for hour in hours %}
+  <tr>
+    <td>{{ hour }}:00</td>
+    {% for day in days %}
+    <td>
+        <a href="{% url 'groupcalendar:event_add' day.date.year day.date.month day.date.day hour%}" class="btn btn-link btn-xs pull-left">+</a>
+        <div class="list-group pull-right">
+            {% for o in day|events_for_hour:hour %}
+                {% include "groupcalendar/includes/occurence_small_li.html" %}
+            {% endfor %}
+        </div >
+    </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+</div>
+{% endblock content %}

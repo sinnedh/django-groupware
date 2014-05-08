@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load groupcalendar_extras %}
+
+{% block content %}
+<h1>{{ object.name }}</h1>
+<p>Description: {{ object.description }}</p>
+<p>Color: #{{ object.color }}</p>
+{% endblock content %}

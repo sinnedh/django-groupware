@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load groupcalendar_extras %}
+
+{% block content %}
+<div class="form-horizontal">
+    {% include 'groupcalendar/includes/summary_row.html' with label='Name' value=object.name %}
+    {% if object.whole_day %}
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{% trans 'Day' %}</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">
+                    {{ object.start.date }}
+                    <span class="label label-default">{% trans 'whole day' %}</span>
+                </p>
+            </div>
+        </div>
+    {% else %}
+        {% include 'groupcalendar/includes/summary_row.html' with label='Start' value=object.start %}
+        {% include 'groupcalendar/includes/summary_row.html' with label='End' value=object.end %}
+    {% endif %}
+    {% include 'groupcalendar/includes/summary_row.html' with label='Calendar' value=object.calendar %}
+    {% include 'groupcalendar/includes/summary_row.html' with label='Description' value=object.description %}
+    {% include 'groupcalendar/includes/summary_row.html' with label='Place' value=object.place %}
+    {% include 'groupcalendar/includes/summary_row.html' with label='Recurrence' value=object.recurrence %}
+</div>
+<a href="{% url 'groupcalendar:event_update' object.pk %}" class="btn btn-primary">{% trans 'Edit' %}</a>
+<a href="{% url 'groupcalendar:event_delete' object.pk %}" class="btn btn-danger">{% trans 'Delete' %}</a>
+{% endblock content %}

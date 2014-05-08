@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% load staticfiles %}
+{% load groupcalendar_extras %}
+
+{% block extrahead %}
+{{ form.media }}
+<script src="{% static 'js/calendar.js' %}"></script>
+{% endblock extrahead %}
+
+{% block content %}
+<form action="" method="post" style="max-width: 800px">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+       {% bootstrap_icon "ok" %} Submit
+    </button>
+    {% endbuttons %}
+</form>
+{% endblock content %}

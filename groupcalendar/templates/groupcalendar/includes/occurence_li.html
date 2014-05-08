@@ -1,0 +1,22 @@
+{% load i18n %}
+<a href="{% url 'groupcalendar:event_detail' o.event.pk %}" class="list-group-item" style="border-left: 15px solid; border-color: #{{ o.event.calendar.color }}">
+    <h4 class="list-group-item-heading">
+    {{ o.start.time|time:"H:i" }} - {{ o.end.time|time:"H:i" }} {{ o.event.name }}
+    </h4>
+
+    {% if o.event.description %}
+    <p class="list-group-item-text">
+    {{ o.event.description }}
+    </p>
+    {% endif %}
+
+    {% if o.event.place %}
+    <p class="list-group-item-text">
+    {{ o.event.place }}
+    </p>
+    {% endif %}
+
+    <p class="list-group-item-text">
+    {% trans 'Calendar:' %} {{ o.event.calendar }}
+    </p>
+</a>

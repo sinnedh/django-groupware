@@ -1,0 +1,71 @@
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load i18n  %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block extrahead %}
+{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+<!-- Container -->
+    {% block header%}
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="navbar-header">
+          <a class="navbar-brand" href="#">Group Calendar</a>
+      </div>
+      <div class="btn-toolbar" role="toolbar">
+        {% block date_navigation %}
+        {% endblock %}
+        <div class="btn-group ">
+            <a href="{% url 'groupcalendar:day' %}" type="button" class="btn btn-default navbar-btn">{% trans 'Daily view' %}</a>
+            <a href="{% url 'groupcalendar:week' %}" type="button" class="btn btn-default navbar-btn">{% trans 'Weekly view' %}</a>
+            <a href="{% url 'groupcalendar:month' %}" type="button" class="btn btn-default navbar-btn">{% trans 'Monthly view' %}</a>
+        </div>
+        <div class="btn-group pull-right">
+            <a href="{% url 'groupcalendar:event_add' %}" type="button" class="btn btn-default navbar-btn">
+                {% bootstrap_icon 'plus' %} {% trans 'Add event' %}
+            </a>
+            <a href="{% url 'groupcalendar:calendar_list' %}" type="button" class="btn btn-default navbar-btn">
+                {% bootstrap_icon 'list' %} {% trans 'Manage calendars' %}
+            </a>
+        </div>
+      </div>
+    </nav>
+    {% endblock %}
+
+    {% block messages %}
+        {% if messages %}
+        <ul class="messagelist">{% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}</ul>
+        {% endif %}
+    {% endblock messages %}
+
+    <!-- Content -->
+    <div id="content" class="{% block coltype %}colM{% endblock %}">
+        {% if title and subtitle %}
+        <div class="page-header">
+            <h1>{{ title }} <small>{{ subtitle }}</small></h1>
+        </div>
+        {% endif %}
+        {% block content %}
+        {{ content }}
+        {% endblock %}
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    {% block footer %}
+    <div id="footer">
+    </div>
+    {% endblock %}
+
+</body>
+</html>

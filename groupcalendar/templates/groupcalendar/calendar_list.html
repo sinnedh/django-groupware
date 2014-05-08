@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% load groupcalendar_extras %}
+
+{% block content %}
+<table class="table table-striped">
+    <tr>
+        <th style="width: 5%">{% trans 'Color' %}</th>
+        <th style="width: 30%">{% trans 'Name' %}</th>
+        <th style="width: 50%">{% trans 'Description' %}</th>
+        <th style="width: 15%">{% trans 'Actions' %}</th>
+    </tr>
+
+    {% for calendar in calendar_list %}
+    <tr>
+        <td style="background-color: #{{ calendar.color }}"></td>
+        <td>{{ calendar.name }}</td>
+        <td>{{ calendar.description}}</td>
+        <td>
+            <a class="btn btn-link" href="{% url 'groupcalendar:calendar_detail' calendar.pk %}">Details</a>
+            <a class="btn btn-link" href="{% url 'groupcalendar:calendar_update' calendar.pk %}">Edit</a>
+            <a class="btn btn-link" href="{% url 'groupcalendar:calendar_delete' calendar.pk %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a type="button" class="btn btn-primary" href="{% url 'groupcalendar:calendar_add' %}">
+    {% bootstrap_icon 'plus' %} {% trans 'Add calendar' %}
+</a>
+{% endblock content %}

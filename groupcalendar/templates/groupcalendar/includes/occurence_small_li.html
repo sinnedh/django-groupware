@@ -1,0 +1,6 @@
+{% load i18n %}
+<a href="{% url 'groupcalendar:event_detail' o.event.pk %}" class="list-group-item" style="border-left: 15px solid; border-color: #{{ o.event.calendar.color }}">
+    <p class="list-group-item-text">
+    {{ o.start.time|time:"H:i" }} {{ o.event.name }}
+    </p>
+</a>

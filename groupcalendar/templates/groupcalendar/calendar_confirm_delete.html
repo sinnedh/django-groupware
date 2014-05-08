@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% load groupcalendar_extras %}
+
+{% block content %}
+<div class="panel panel-danger">
+    <div class="panel-heading">Are you sure you want to delete "{{ object }}"?</div>
+    <div class="panel-body">
+        <form action="" method="post">
+            {% csrf_token %}
+            <p></p>
+            {% buttons %}
+            <button type="submit" class="btn btn-danger" >
+            {% bootstrap_icon 'trash' %} Yes, confirm!
+            </button>
+            <a href="{% url 'groupcalendar:calendar_list' %}" class="btn btn-default" >
+            No, cancel.
+            </a>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
