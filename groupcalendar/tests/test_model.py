@@ -45,7 +45,7 @@ class OccurenceTest(TestCase):
         for e in self.events:
             e.calendar = self.cal1
             e.save()
-            e.createAndSaveOccurences()
+            e.create_and_save_occurences()
 
     def tearDown(self):
         for e in self.events:
@@ -54,9 +54,9 @@ class OccurenceTest(TestCase):
     def test_get_occurences_for_day(self):
         occurences = Occurence.get_occurences_for_day(datetime.date(2014, 4, 1))
         self.assertEqual(list(occurences),
-                         [self.events[0].occurence_set.all()[0],
+                         [self.events[2].occurence_set.all()[0],
+                          self.events[0].occurence_set.all()[0],
                           self.events[1].occurence_set.all()[0],
-                          self.events[2].occurence_set.all()[0],
                           self.events[3].occurence_set.all()[0],
                           self.events[6].occurence_set.all()[7]])
 

@@ -110,7 +110,7 @@ class Occurence(models.Model):
     end = models.DateTimeField(_('end'))
 
     def __unicode__(self):
-        return self.id
+        return '%d: %s' % (self.id, self.start)
 
     @staticmethod
     def get_occurences_for_day(date):
@@ -120,7 +120,7 @@ class Occurence(models.Model):
         to_datetime = timezone.make_aware(
             datetime.datetime.combine(date, datetime.time.max),
             timezone.get_current_timezone())
-        return Occurence.objects.filter(start__lte=to_datetime, 
+        return Occurence.objects.filter(start__lte=to_datetime,
                 end__gte=from_datetime).order_by('start')
 
 
