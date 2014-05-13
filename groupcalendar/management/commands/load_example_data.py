@@ -37,10 +37,10 @@ class Command(NoArgsCommand):
                       name='Example Single Event',
                       calendar=cal
                       )
-        event.start = dt(2014, 4, 1, 17)
-        event.end = dt(2014, 4, 1, 19)
+        event.start = dt(2014, 5, 1, 17)
+        event.end = dt(2014, 5, 1, 19)
         event.save()
-        event.createAndSaveOccurences()
+        event.create_and_save_occurences()
 
         rec = Recurrence(frequency='DAILY',
 #            start=datetime.datetime(2014, 3, 30, 13),
@@ -50,10 +50,10 @@ class Command(NoArgsCommand):
         event = Event(recurrence=rec,
                       name='Example Daily Event',
                       calendar=cal)
-        event.start = dt(2014, 4, 1, 13)
-        event.end = dt(2014, 4, 1, 18)
+        event.start = dt(2014, 5, 1, 13)
+        event.end = dt(2014, 5, 1, 18)
         event.save()
-        event.createAndSaveOccurences()
+        event.create_and_save_occurences()
 
 
 
