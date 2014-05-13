@@ -22,6 +22,7 @@
     {% include 'groupcalendar/includes/summary_row.html' with label='Calendar' value=object.calendar %}
     {% include 'groupcalendar/includes/summary_row.html' with label='Description' value=object.description %}
     {% include 'groupcalendar/includes/summary_row.html' with label='Place' value=object.place %}
+    {% include 'groupcalendar/includes/summary_row.html' with label='URL' value=object.url url=object.url %}
     {% include 'groupcalendar/includes/summary_row.html' with label='Recurrence' value=object.recurrence %}
 </div>
 <a href="{% url 'groupcalendar:event_update' object.pk %}" class="btn btn-primary">{% trans 'Edit' %}</a>

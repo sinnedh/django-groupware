@@ -2,6 +2,12 @@
 <div class="form-group">
     <label class="col-sm-2 control-label">{% trans label %}</label>
     <div class="col-sm-9">
-        <p class="form-control-static">{{ value }}</p>
+        <p class="form-control-static">
+        {% if url %}
+        <a class="form-control-static" href="{{ url }}">{{ value }}</a>
+        {% else %}
+        {{ value }}
+        {% endif %}
+        </p>
     </div>
 </div>

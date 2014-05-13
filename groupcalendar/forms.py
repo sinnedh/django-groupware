@@ -26,10 +26,9 @@ class EventAddForm(forms.ModelForm):
                                            'pickTime': False}),
             required=False)
 
-
     def __init__(self, *args, **kwargs):
         super(EventAddForm, self).__init__(*args, **kwargs)
 
     class Meta:
         model = Event
-        fields = ('name', 'start', 'end', 'day', 'whole_day', 'calendar', 'description', 'place',  )
+        fields = ('name', 'start', 'end', 'day', 'whole_day', 'calendar', 'description', 'place', 'url' )

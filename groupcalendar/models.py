@@ -52,8 +52,9 @@ class Recurrence(models.Model):
 class Event(models.Model):
     recurrence = models.ForeignKey(Recurrence, blank=True, null=True)
     name = models.CharField(max_length=200)
-    description = models.TextField(_('description'), blank=True)
-    place = models.TextField(_('place'), blank=True)
+    description = models.TextField(_('description'), blank=True, null=True)
+    place = models.TextField(_('place'), blank=True, null=True)
+    url = models.CharField(_('URL'), max_length=512, blank=True, null=True)
     calendar = models.ForeignKey(Calendar)
     start = models.DateTimeField(_('start'))
     end = models.DateTimeField(_('end'))

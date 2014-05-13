@@ -16,6 +16,12 @@
     </p>
     {% endif %}
 
+    {% if o.event.url %}
+    <p class="list-group-item-text">
+    {{ o.event.url }}
+    </p>
+    {% endif %}
+
     <p class="list-group-item-text">
     {% trans 'Calendar:' %} {{ o.event.calendar }}
     </p>

@@ -160,7 +160,7 @@ class EventDetail(DetailView):
 class EventCreate(CreateView):
     form_class = EventAddForm
     model = Event
-    fields = ['name', 'start', 'end', 'description', 'place', 'calendar']
+    fields = ['name', 'start', 'end', 'description', 'place', 'url', 'calendar']
     success_url = reverse_lazy('groupcalendar:home')
 
     def get(self, *args, **kwargs):
@@ -215,7 +215,7 @@ class EventCreate(CreateView):
 class EventUpdate(UpdateView):
     form_class = EventAddForm
     model = Event
-    fields = ['name', 'start', 'end', 'description', 'place', 'calendar']
+    fields = ['name', 'start', 'end', 'description', 'place', 'url', 'calendar']
 
     def get_context_data(self, **kwargs):
         context = super(EventUpdate, self).get_context_data(**kwargs)
