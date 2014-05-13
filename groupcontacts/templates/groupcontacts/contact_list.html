@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% load groupcalendar_extras %}
+
+{% block content %}
+<table class="table table-striped">
+    <tr>
+        <th style="width: 30%">{% trans 'Name' %}</th>
+        <th style="width: 15%">{% trans 'Actions' %}</th>
+    </tr>
+
+    {% for contact in contact_list %}
+    <tr>
+        <td>{{ contact.fullname }}</td>
+        <td>
+            <a class="btn btn-link" href="{% url 'groupcontacts:contact_detail' contact.pk %}">Details</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
