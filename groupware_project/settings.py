@@ -1,5 +1,5 @@
 """
-Django settings for groupcalendar_project project.
+Django settings for groupware_project project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -55,9 +55,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'groupcalendar_project.urls'
+ROOT_URLCONF = 'groupware_project.urls'
 
-WSGI_APPLICATION = 'groupcalendar_project.wsgi.application'
+WSGI_APPLICATION = 'groupware_project.wsgi.application'
 
 
 # Database
