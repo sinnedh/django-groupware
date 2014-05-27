@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+
+      <div class="col-md-4">
+          <div class="panel panel-default">
+              <div class="panel-body text-center">
+                  <a href="{% url 'groupcalendar:day' %}"><h3>Calendar</h3></a>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-md-4">
+          <div class="panel panel-default">
+              <div class="panel-body text-center">
+                  <h3><a href="{% url 'groupcontacts:contact_list' %}">Contacts</a></h3>
+              </div>
+          </div>
+      </div>
+
+  </div>
+</div>
+
+
+{% endblock content %}
