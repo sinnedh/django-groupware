@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load i18n  %}
+
+{% block header-btn-toolbar %}
+  <div class="btn-toolbar" role="toolbar">
+    {% block date_navigation %}
+    {% endblock %}
+    <div class="btn-group ">
+        <a href="{% url 'groupcalendar:day' %}" type="button" class="btn btn-default navbar-btn">{% trans 'Daily view' %}</a>
+        <a href="{% url 'groupcalendar:week' %}" type="button" class="btn btn-default navbar-btn">{% trans 'Weekly view' %}</a>
+        <a href="{% url 'groupcalendar:month' %}" type="button" class="btn btn-default navbar-btn">{% trans 'Monthly view' %}</a>
+    </div>
+    <div class="btn-group pull-right">
+        <a href="{% url 'groupcalendar:event_add' %}" type="button" class="btn btn-default navbar-btn">
+            {% bootstrap_icon 'plus' %} {% trans 'Add event' %}
+        </a>
+        <a href="{% url 'groupcalendar:calendar_list' %}" type="button" class="btn btn-default navbar-btn">
+            {% bootstrap_icon 'list' %} {% trans 'Manage calendars' %}
+        </a>
+    </div>
+  </div>
+{% endblock %}

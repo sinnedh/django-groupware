@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "groupcalendar.html" %}
 {% load bootstrap3 %}
 {% load i18n %}
 {% load groupcalendar_extras %}
@@ -14,8 +14,12 @@
             <button type="submit" class="btn btn-danger" >
             {% bootstrap_icon 'trash' %} Yes, confirm!
             </button>
+            <a href="{% url 'groupcalendar:calendar_list' %}" class="btn btn-default" >
+            No, cancel.
+            </a>
             {% endbuttons %}
         </form>
     </div>
 </div>
+
 {% endblock content %}
