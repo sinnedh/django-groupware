@@ -10,7 +10,7 @@ coverage:
 	coverage report --omit "manage.py" --show-missing
 
 reinstall:
-	rm ../../db/db.sqlite3;
+	rm -f ../../db/db.sqlite3;
 	touch ../../db/db.sqlite3;
 	chmod 777 ../../db
 	chmod 777 ../../db/db.sqlite3
