@@ -2,21 +2,19 @@
 Django settings for groupware_project project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
+https://docs.djangoproject.com/en/1.7/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
+https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-AUTH_USER_MODULE = 'auth.User'
-
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*sm7x7t&f-20yyjvaw!4d197(td+hso($$dk1z-0f3txj=mq=w'
@@ -32,20 +30,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'commons',
-    'groupcalendar',
-    'groupcontacts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'commons',
+    'groupcalendar',
+    'groupcontacts',
     'jquery',
     'bootstrap3',
     'bootstrap3_datetime',
-    'south',
-    'debug_toolbar',
+    'django_extensions',
+#    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -53,6 +51,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -63,17 +62,13 @@ WSGI_APPLICATION = 'groupware_project.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+DATABASES = {}
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../../db/db.sqlite3'),
-    }
-}
+
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.6/topics/i18n/
+# https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'de-DE'
 
@@ -87,19 +82,16 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-STATIC_ROOT = '../../static'
-STATIC_URL = '/calendar/static/'
+# https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-#    '/var/www/static/',
+#    os.path.join(BASE_DIR, "static"),
 )
+STATIC_ROOT = BASE_DIR + "/../static/"
+STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    BASE_DIR+'/templates'
+    BASE_DIR + '/../templates/',
 )
+
+LOGIN_URL = 'login'
