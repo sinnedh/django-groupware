@@ -1,6 +1,7 @@
 import calendar
 import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.utils import timezone
@@ -10,12 +11,13 @@ from django.utils.translation import ugettext_lazy as _
 
 from groupcalendar.models import Occurence, Event, Calendar
 from groupcalendar.forms import EventAddForm
+from accounts.mixins import LoginRequiredMixin
 
 
-class OverviewCalendar(calendar.HTMLCalendar):
+class OverviewCalendar(LoginRequiredMixin, calendar.HTMLCalendar):
     def __init__(self, actual_date, firstweekday=0):
         self.actual_date = actual_date
-        self.firstweekday = firstweekday # 0 = Monday, 6 = Sunday
+        self.firstweekday = firstweekday  # 0 = Monday, 6 = Sunday
 
     def formatday(self, day, weekday):
         """
@@ -38,7 +40,8 @@ class OverviewCalendar(calendar.HTMLCalendar):
                 reverse_lazy('groupcalendar:day', kwargs={
                     'year': self.actual_date.year,
                     'month': self.actual_date.month,
-                    'day': day }),
+                    'day': day
+                }),
                 day)
 
         if day_repr.date == timezone.now().date():
@@ -53,7 +56,7 @@ class OverviewCalendar(calendar.HTMLCalendar):
 class MonthlyCalendar(calendar.HTMLCalendar):
     def __init__(self, actual_date, firstweekday=0):
         self.actual_date = actual_date
-        self.firstweekday = firstweekday # 0 = Monday, 6 = Sunday
+        self.firstweekday = firstweekday  # 0 = Monday, 6 = Sunday
 
     def formatday(self, day, weekday):
         """
@@ -72,9 +75,9 @@ class MonthlyCalendar(calendar.HTMLCalendar):
             reverse_lazy('groupcalendar:day', kwargs={
                 'year': self.actual_date.year,
                 'month': self.actual_date.month,
-                'day': day }),
+                'day': day
+            }),
             day)
-
 
         li = '<div class="list-group">'
         if day_repr.date == timezone.now().date():
@@ -85,9 +88,9 @@ class MonthlyCalendar(calendar.HTMLCalendar):
 
         for o in occurences:
             li += '<a href="%s" class="list-group-item small"><small>' % (
-                    reverse_lazy('groupcalendar:event_detail', kwargs={
-                        'pk': o.event.pk }),
-                    )
+                reverse_lazy('groupcalendar:event_detail', kwargs={
+                    'pk': o.event.pk}),
+                )
             li += o.event.name
 #            li += '<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Popover on top</button>'
             li += '</small></s>'
@@ -147,6 +150,8 @@ class DayRepresentation:
 """
 Event based class views
 """
+
+
 class EventDetail(DetailView):
     model = Event
 
@@ -168,10 +173,10 @@ class EventCreate(CreateView):
         if 'hour' in kwargs:
             hour = int(kwargs['hour'])
         if 'year' in kwargs and 'month' in kwargs and 'day' in kwargs:
-            self.date = datetime.datetime(year = int(kwargs['year']),
-                                        month = int(kwargs['month']),
-                                        day = int(kwargs['day']),
-                                        hour = hour)
+            self.date = datetime.datetime(year=int(kwargs['year']),
+                                          month=int(kwargs['month']),
+                                          day=int(kwargs['day']),
+                                          hour=hour)
         else:
             self.date = timezone.now().date()
         return super(EventCreate, self).get(args, kwargs)
@@ -246,6 +251,7 @@ class EventDelete(DeleteView):
 Calendar based class views
 """
 
+
 class CalendarList(ListView):
     model = Calendar
 
@@ -278,7 +284,7 @@ class CalendarCreate(CreateView):
         return context
 
 
-class CalendarUpdate(UpdateView):
+class CalendarUpdate(LoginRequiredMixin, UpdateView):
     model = Calendar
     fields = ['name', 'description', 'color']
     success_url = reverse_lazy('groupcalendar:calendar_list')
@@ -290,7 +296,7 @@ class CalendarUpdate(UpdateView):
         return context
 
 
-class CalendarDelete(DeleteView):
+class CalendarDelete(LoginRequiredMixin, DeleteView):
     model = Calendar
     success_url = reverse_lazy('groupcalendar:calendar_list')
 
@@ -304,30 +310,41 @@ class CalendarDelete(DeleteView):
 """
 Other views
 """
+
+
+@login_required
 def home(request):
     import django
-    context = { 'dump': django.get_version() }
+    context = {'dump': django.get_version()}
     return render(request, 'groupcalendar/home.html', context)
 
+
+@login_required
 def actual_day(request):
     today = timezone.now().date()
     return day(request, today.year, today.month, today.day)
 
+
+@login_required
 def day(request, year, month, day):
     date = datetime.date(int(year), int(month), int(day))
     occurences = Occurence.get_occurences_for_day(date)
     myCal = OverviewCalendar(date, calendar.MONDAY)
     context = {
-            'date': date,
-            'occurences': occurences,
-            'calendar': myCal.formatmonth(date.year, date.month)
-            }
+        'date': date,
+        'occurences': occurences,
+        'calendar': myCal.formatmonth(date.year, date.month)
+    }
     return render(request, 'groupcalendar/day.html', context)
 
+
+@login_required
 def actual_week(request):
     today = timezone.now().date()
     return week(request, today.year, today.isocalendar()[1])
 
+
+@login_required
 def week(request, year, week):
     date = datetime.date(int(year), int(1), 1)
     date += datetime.timedelta(weeks=int(week)-1)
@@ -355,10 +372,14 @@ def week(request, year, week):
         day.load_occurences()
     return render(request, 'groupcalendar/week.html', context)
 
+
+@login_required
 def actual_month(request):
     today = timezone.now().date()
     return month(request, today.year, today.month)
 
+
+@login_required
 def month(request, year, month):
     date = datetime.date(int(year), int(month), 1)
     myCal = MonthlyCalendar(date, calendar.MONDAY)
@@ -369,10 +390,10 @@ def month(request, year, month):
     return render(request, 'groupcalendar/month.html', context)
 
 
+@login_required
 def week_test(request):
     context = {
         'visible_daily_timerange': range(0, 24),
         'days': ['Mon', 'Tue', 'Wed', 'Thursday', 'Fri', 'Sat', 'Sun']
     }
     return render(request, 'groupcalendar/week_test.html', context)
-

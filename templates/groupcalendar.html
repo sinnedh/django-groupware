@@ -4,7 +4,6 @@
 {% load i18n  %}
 
 {% block header-btn-toolbar %}
-  <div class="btn-toolbar" role="toolbar">
     {% block date_navigation %}
     {% endblock %}
     <div class="btn-group ">
@@ -12,7 +11,7 @@
         <a href="{% url 'groupcalendar:week' %}" type="button" class="btn btn-default navbar-btn">{% trans 'Weekly view' %}</a>
         <a href="{% url 'groupcalendar:month' %}" type="button" class="btn btn-default navbar-btn">{% trans 'Monthly view' %}</a>
     </div>
-    <div class="btn-group pull-right">
+    <div class="btn-group">
         <a href="{% url 'groupcalendar:event_add' %}" type="button" class="btn btn-default navbar-btn">
             {% bootstrap_icon 'plus' %} {% trans 'Add event' %}
         </a>
@@ -20,5 +19,4 @@
             {% bootstrap_icon 'list' %} {% trans 'Manage calendars' %}
         </a>
     </div>
-  </div>
 {% endblock %}
