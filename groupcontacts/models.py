@@ -2,7 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
-# Create your models here.
+
 class Contact(models.Model):
     title = models.CharField(max_length=200, blank=True, null=True)
     firstname = models.CharField(max_length=200)
@@ -21,3 +21,13 @@ class Contact(models.Model):
         if self.title:
             name = '%s %s' % (self.title, name)
         return name
+
+
+class Address(models.Model):
+    contact = models.ForeignKey(Contact)
+    street = models.CharField(max_length=200, blank=True, null=True)
+    additional = models.CharField(max_length=200, blank=True, null=True)
+    postcode = models.CharField(max_length=20, blank=True, null=True)
+    city = models.CharField(max_length=200, blank=True, null=True)
+    country = models.CharField(max_length=200, blank=True, null=True)
+
